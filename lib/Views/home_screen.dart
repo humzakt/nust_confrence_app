@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nust_conference/Controller/navigate.dart';
 import 'package:nust_conference/Models/appBar.dart';
 import 'package:nust_conference/Models/appDrawer.dart';
 import 'package:nust_conference/Models/homeCard.dart';
+import 'package:nust_conference/Views/speaker_screen.dart';
 import 'package:nust_conference/colors.dart';
 
 class Home extends StatefulWidget {
@@ -20,9 +22,9 @@ class _HomeState extends State<Home> {
       drawer: appDrawer(),
       // App Bar Widget Used
 
-      appBar: AppBarWidget(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      appBar: AppBarWidget(title: "Conference 2022"),
+      body: ListView(
+        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.only(
@@ -79,23 +81,44 @@ class _HomeState extends State<Home> {
               HomeCard(
                 icon: Icons.file_copy_outlined,
                 text: "PAPERS",
-                ontap: () {},
+                ontap: () {
+                  Navigator.pushNamed(context, '/papers');
+                },
               ),
-              HomeCard(icon: Icons.people, text: "SPEAKERS", ontap: () {}),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              HomeCard(icon: Icons.groups, text: "COMMITTEES", ontap: () {}),
               HomeCard(
-                  icon: Icons.query_builder, text: "PROGRAMME", ontap: () {}),
+                  icon: Icons.people,
+                  text: "SPEAKERS",
+                  ontap: () {
+                    Navigator.pushNamed(context, '/speakers');
+                  }),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              HomeCard(icon: Icons.map_outlined, text: "VENUE", ontap: () {}),
+              HomeCard(
+                  icon: Icons.groups,
+                  text: "COMMITTEES",
+                  ontap: () {
+                    Navigator.pushNamed(context, '/committee');
+                  }),
+              HomeCard(
+                  icon: Icons.query_builder,
+                  text: "PROGRAMME",
+                  ontap: () {
+                    Navigator.pushNamed(context, '/programme');
+                  }),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              HomeCard(
+                  icon: Icons.map_outlined,
+                  text: "VENUE",
+                  ontap: () {
+                    navigateTo(lat: 33.645572, lng: 72.990345);
+                  }),
               HomeCard(
                   icon: Icons.contact_support_outlined,
                   text: "CONTACT",

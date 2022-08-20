@@ -46,19 +46,21 @@ class appDrawer extends StatelessWidget {
               height: 10,
             ),
             appDrawerListTile(
-              title: 'Contact Us',
+              title: 'Home',
               onTap: () {
-                // Update the state of the app.
-                // ...
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/home', (route) => false);
               },
+              icon: Icons.home_filled,
+            ),
+            appDrawerListTile(
+              title: 'Contact Us',
+              onTap: () {},
               icon: Icons.call,
             ),
             appDrawerListTile(
               title: 'Locate Venue',
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
+              onTap: () {},
               icon: Icons.directions,
             ),
             // Spacer()
@@ -137,14 +139,18 @@ class appDrawerListTile extends StatelessWidget {
       child: ListTile(
         // leading:
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
               icon,
               color: secondaryColor,
             ),
             // Expanded(child: SizedBox()),
+            SizedBox(
+              width: 20,
+            ),
+
             Text(
               title,
               style: TextStyle(color: secondaryColor, fontSize: 20),

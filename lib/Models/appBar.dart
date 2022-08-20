@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import '../colors.dart';
 
-AppBar AppBarWidget() {
+AppBar AppBarWidget({required String title}) {
   return AppBar(
     centerTitle: true,
-    title: const Text("Conference 2022"),
+    title: Text(title),
     backgroundColor: primaryColor,
     leading: Builder(builder: (context) {
       return IconButton(
         onPressed: () {
           Scaffold.of(context).openDrawer();
         },
-        icon: Image.asset(
-          "assets/nust.png",
-          // fit: BoxFit.fitHeight,
-          // width: 300,
+        icon: CircleAvatar(
+          // radius: 20,
+          backgroundImage: AssetImage(
+            "assets/nust.png",
+
+            // fit: BoxFit.fitHeight,
+            // width: 300,
+          ),
         ),
       );
     }),
