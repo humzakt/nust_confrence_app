@@ -6,12 +6,17 @@ AppBar AppBarWidget() {
     centerTitle: true,
     title: const Text("Conference 2022"),
     backgroundColor: primaryColor,
-    leading: Padding(
-      padding: const EdgeInsets.all(5),
-      child: Image.asset(
-        "assets/nust.png",
-        fit: BoxFit.cover,
-      ),
-    ),
+    leading: Builder(builder: (context) {
+      return IconButton(
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
+        icon: Image.asset(
+          "assets/nust.png",
+          // fit: BoxFit.fitHeight,
+          // width: 300,
+        ),
+      );
+    }),
   );
 }

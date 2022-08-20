@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nust_conference/Models/appBar.dart';
+import 'package:nust_conference/Models/appDrawer.dart';
 import 'package:nust_conference/Models/homeCard.dart';
 import 'package:nust_conference/colors.dart';
 
@@ -16,7 +17,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primaryColor,
+      drawer: appDrawer(),
       // App Bar Widget Used
+
       appBar: AppBarWidget(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
