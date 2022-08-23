@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nust_conference/Models/loginDialog.dart';
 import 'package:nust_conference/colors.dart';
 
 class appDrawer extends StatelessWidget {
@@ -81,7 +82,13 @@ class loginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (_) => DialogWidget(),
+          barrierDismissible: false,
+        );
+      },
       child: Container(
         // color: secondaryColor,
         decoration: BoxDecoration(
@@ -147,13 +154,13 @@ class appDrawerListTile extends StatelessWidget {
               color: secondaryColor,
             ),
             // Expanded(child: SizedBox()),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
 
             Text(
               title,
-              style: TextStyle(color: secondaryColor, fontSize: 20),
+              style: const TextStyle(color: secondaryColor, fontSize: 20),
             ),
           ],
         ),

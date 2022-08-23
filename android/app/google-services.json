@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "78873514188",
+    "project_id": "nust-conference",
+    "storage_bucket": "nust-conference.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78873514188:android:fc9885cbd18d4d66cef269",
+        "android_client_info": {
+          "package_name": "com.HSDev.nust_conference"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78873514188-ndnn4ic2uj8b8crhlj4t0d9gn08ep23i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPdvxrxKpiFukNNQGdtwbGCIL4u5Ct6aI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78873514188-ndnn4ic2uj8b8crhlj4t0d9gn08ep23i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

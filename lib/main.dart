@@ -1,13 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nust_conference/Views/papers_screen.dart';
 import 'package:nust_conference/Views/programme_screen.dart';
 import 'package:nust_conference/Views/splashScreen.dart';
-
 import 'Views/committees_screen.dart';
 import 'Views/home_screen.dart';
 import 'Views/speaker_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
