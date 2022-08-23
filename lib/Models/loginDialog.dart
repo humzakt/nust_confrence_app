@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nust_conference/Controller/authMethods.dart';
 import 'package:nust_conference/Models/textField.dart';
+import 'package:nust_conference/provider/loggedInProvider.dart';
+import 'package:provider/provider.dart';
 
 class DialogWidget extends StatefulWidget {
   const DialogWidget({
     Key? key,
   }) : super(key: key);
+
   @override
   State<DialogWidget> createState() => _DialogWidgetState();
 }
@@ -16,6 +19,7 @@ final TextEditingController pass = TextEditingController();
 class _DialogWidgetState extends State<DialogWidget> {
   // String to show error message if admin login fails
   String loginResponse = "";
+
   // Bool to show or hide Circular Progress Indicator
   bool isLoading = false;
 
@@ -32,6 +36,7 @@ class _DialogWidgetState extends State<DialogWidget> {
         if (res == "Success!") {
           email.text = "";
           pass.text = "";
+          Provider.of<AdminProvider>(context, listen: false).isLoggedIn = true;
           if (!mounted) return;
           setState(() {
             isLoading = false;

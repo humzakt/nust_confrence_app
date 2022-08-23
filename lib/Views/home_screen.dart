@@ -3,7 +3,7 @@ import 'package:nust_conference/Controller/navigate.dart';
 import 'package:nust_conference/Models/appBar.dart';
 import 'package:nust_conference/Models/appDrawer.dart';
 import 'package:nust_conference/Models/homeCard.dart';
-import 'package:nust_conference/Views/speaker_screen.dart';
+
 import 'package:nust_conference/colors.dart';
 
 class Home extends StatefulWidget {

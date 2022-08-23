@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nust_conference/Controller/authMethods.dart';
 import 'package:nust_conference/Models/loginDialog.dart';
 import 'package:nust_conference/colors.dart';
+import 'package:nust_conference/provider/loggedInProvider.dart';
+import 'package:provider/provider.dart';
 
 class appDrawer extends StatelessWidget {
   const appDrawer({
@@ -66,7 +69,62 @@ class appDrawer extends StatelessWidget {
             ),
             // Spacer()
             Expanded(child: SizedBox()),
-            loginButton(),
+            Provider.of<AdminProvider>(context, listen: true).isLoggedIn
+                ? logoutButton()
+                : loginButton(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class logoutButton extends StatelessWidget {
+  const logoutButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        AuthMethods().signOut(context);
+        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        // showDialog(
+        //   context: context,
+        //   builder: (_) => DialogWidget(),
+        //   barrierDismissible: false,
+        // );
+      },
+      child: Container(
+        // color: secondaryColor,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: secondaryColor,
+            width: 1,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        alignment: Alignment.center,
+        height: 50,
+        width: 150,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: const [
+            Icon(
+              Icons.logout,
+              color: secondaryColor,
+            ),
+            // alignment: Alignment.bottomLeft,
+
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Logout',
+              style: TextStyle(color: secondaryColor, fontSize: 20),
+            ),
           ],
         ),
       ),
