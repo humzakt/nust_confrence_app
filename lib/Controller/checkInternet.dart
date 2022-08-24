@@ -18,8 +18,8 @@ Future<bool> checkInternet(BuildContext context) async {
     return false;
   } on SocketException catch (_) {
     print('not connected to the Internet');
-    await Navigator.pushNamed(context, '/error')
-        .then((value) => checkInternet(context));
+    // await Navigator.pushNamed(context, '/error')
+    //     .then((value) => checkInternet(context));
 
     return false;
   }

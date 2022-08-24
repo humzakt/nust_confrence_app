@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nust_conference/Controller/checkInternet.dart';
 import 'package:nust_conference/Controller/navigate.dart';
 import 'package:nust_conference/Models/appBar.dart';
 import 'package:nust_conference/Models/appDrawer.dart';
@@ -22,50 +23,46 @@ class _HomeState extends State<Home> {
       drawer: appDrawer(),
       // App Bar Widget Used
 
-      appBar: AppBarWidget(title: "Conference 2022"),
+      appBar: AppBarWidget(title: "Welcome to Conference"),
       body: ListView(
         // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              top: 20.0,
-              left: 35,
-              right: 35,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 5,
+              vertical: 20,
             ),
             child: Column(
               children: [
                 // MAIN TEXT CONTAINER
                 Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color: backgroundColor,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(0.0, 1.0), //(x,y)
-                        blurRadius: 5.0,
-                      ),
-                    ],
-                  ),
-                  child: const Text(
-                    "Welcome to Conference 2022",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.black,
-                    ),
+                  // padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.symmetric(vertical: 20),
+
+                  // height: 40,
+                  // // // decoration: BoxDecoration(
+                  // //   borderRadius: BorderRadius.circular(25),
+                  // //   color: backgroundColor,
+                  // //   boxShadow: const [
+                  // //     BoxShadow(
+                  // //       color: Colors.grey,
+                  // //       offset: Offset(0.0, 1.0), //(x,y)
+                  // //       blurRadius: 5.0,
+                  // //     ),
+                  // //   ],
+                  // ),
+                  child: Image.asset(
+                    'assets/conferenceText.png',
+                    color: Colors.white,
+                    width: MediaQuery.of(context).size.width,
                   ),
                 ),
                 // CHILD TEXT
                 const Text(
                   "2nd International Conference on Digital Futures and Transformative Technologies will provide and exceelt international forum for sharing knowledge and results in theory , methodology and results.",
                   style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                  ),
+                      color: Colors.grey, fontSize: 15, fontFamily: 'Calisto'),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
@@ -79,37 +76,39 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               HomeCard(
-                icon: Icons.file_copy_outlined,
-                text: "PAPERS",
-                ontap: () {
-                  Navigator.pushNamed(context, '/papers');
+                icon: Icons.query_builder,
+                text: "AGENDA",
+                ontap: () async {
+                  await checkInternet(context)
+                      ? Navigator.pushNamed(context, '/programme')
+                      : showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text("No Internet"),
+                            content:
+                                Text("Please check your internet connection"),
+                            actions: [
+                              TextButton(
+                                child: Text("OK"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                          ),
+                        );
                 },
               ),
               HomeCard(
-                  icon: Icons.people,
-                  text: "SPEAKERS",
-                  ontap: () {
-                    Navigator.pushNamed(context, '/speakers');
-                  }),
+                icon: Icons.people,
+                text: "SPEAKERS",
+                ontap: () {
+                  Navigator.pushNamed(context, '/speakers');
+                },
+              ),
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              HomeCard(
-                  icon: Icons.groups,
-                  text: "COMMITTEES",
-                  ontap: () {
-                    Navigator.pushNamed(context, '/committee');
-                  }),
-              HomeCard(
-                  icon: Icons.query_builder,
-                  text: "PROGRAMME",
-                  ontap: () {
-                    Navigator.pushNamed(context, '/programme');
-                  }),
-            ],
-          ),
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -117,12 +116,37 @@ class _HomeState extends State<Home> {
                   icon: Icons.map_outlined,
                   text: "VENUE",
                   ontap: () {
-                    navigateTo(lat: 33.645572, lng: 72.990345);
+                    navigateTo();
                   }),
               HomeCard(
                   icon: Icons.contact_support_outlined,
                   text: "CONTACT",
                   ontap: () {}),
+            ],
+          ),
+
+          SizedBox(
+            height: 10,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image.asset(
+                'assets/definingFutures.png',
+                width: MediaQuery.of(context).size.width / 5,
+                color: Colors.white,
+              ),
+              Image.asset(
+                'assets/MoFA.png',
+                width: MediaQuery.of(context).size.width / 5.5,
+                color: Colors.white,
+              ),
+              Image.asset(
+                'assets/nips.png',
+                width: MediaQuery.of(context).size.width / 5.5,
+                color: Colors.white,
+              ),
             ],
           ),
         ],

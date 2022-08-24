@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nust_conference/Controller/firestoreMethods.dart';
 import 'package:nust_conference/provider/loggedInProvider.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 import '../Models/appBar.dart';
 import '../Models/appDrawer.dart';
@@ -69,46 +70,48 @@ class _ProgrammeScreenState extends State<ProgrammeScreen> {
                             ),
                           ],
                         ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton(
-                            // Initial Value
-                            value: dropdownvalue,
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500),
+                        child: items.isEmpty
+                            ? Container()
+                            : DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  // Initial Value
+                                  value: dropdownvalue,
+                                  style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500),
 
-                            // Down Arrow Icon
-                            icon: const Icon(
-                              Icons.keyboard_arrow_down,
-                              color: Colors.black,
-                              size: 30,
-                            ),
+                                  // Down Arrow Icon
+                                  icon: const Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Colors.black,
+                                    size: 30,
+                                  ),
 
-                            // Array list of items
-                            items: items.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
+                                  // Array list of items
+                                  items: items.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
 
-                            // items.map((String items) {
-                            //   return DropdownMenuItem(
-                            //     value: items,
-                            //     child: Text(items),
-                            //   );
-                            //
-                            // }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownvalue = newValue!;
-                              });
-                            },
-                          ),
-                        ),
+                                  // items.map((String items) {
+                                  //   return DropdownMenuItem(
+                                  //     value: items,
+                                  //     child: Text(items),
+                                  //   );
+                                  //
+                                  // }).toList(),
+                                  // After selecting the desired option,it will
+                                  // change button value to selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      dropdownvalue = newValue!;
+                                    });
+                                  },
+                                ),
+                              ),
                       ),
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02),
@@ -143,6 +146,9 @@ class _ProgrammeScreenState extends State<ProgrammeScreen> {
         isLoading = false;
       });
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 }
 
@@ -227,6 +233,7 @@ class _adminPanelState extends State<adminPanel> {
                         updateFirebase(date, timestamp, eventName);
                       });
                     });
+                    FocusManager.instance.primaryFocus?.unfocus();
                     // updateItems();
                   },
                   icon: Icon(
@@ -250,16 +257,22 @@ class _adminPanelState extends State<adminPanel> {
     final FirebaseFirestore _firestore =
         Provider.of<AdminProvider>(context, listen: false).firestore;
 
-    _firestore
-        .collection("conference 2022")
-        .doc(date.toString().split(" ")[0])
-        .set({
-      "last updated": timestamp,
+    String time = DateFormat.yMMMd().add_jm().format(timestamp.toDate());
+
+    String collName = time.split(" ")[0] +
+        " " +
+        time.split(" ")[1] +
+        " " +
+        time.split(" ")[2];
+    print(collName);
+
+    _firestore.collection("conference 2022").doc(collName).set({
+      "last updated": Timestamp.fromDate(DateTime.now()),
     });
 
     _firestore
         .collection("conference 2022")
-        .doc(date.toString().split(" ")[0])
+        .doc(collName)
         .collection("schedule")
         .add({
       "timestamp": timestamp,

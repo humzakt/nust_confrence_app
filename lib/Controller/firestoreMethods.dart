@@ -33,7 +33,7 @@ class _GetScheduleState extends State<GetSchedule> {
     return StreamBuilder<QuerySnapshot>(
       stream: _firestore
           .collection("conference 2022")
-          .doc(widget.date.toString().split(" ")[0])
+          .doc(widget.date)
           .collection("schedule")
           .orderBy('timestamp')
           .snapshots(),
@@ -54,6 +54,8 @@ class _GetScheduleState extends State<GetSchedule> {
             String time =
                 DateFormat.yMMMd().add_jm().format(data['timestamp'].toDate());
 
+            // print(time.split(" ")[3] + " " + time.split(" ")[4]);
+            time = time.split(" ")[3] + " " + time.split(" ")[4];
             return isLoggedIn
                 ? editableScheduleWidget(
                     eventName: data['event'].toString(),
@@ -88,6 +90,7 @@ class editableScheduleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
         border: Border.all(
@@ -95,24 +98,47 @@ class editableScheduleWidget extends StatelessWidget {
           width: 1,
         ),
       ),
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          IconButton(
+            onPressed: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text("Delete Event"),
+                      content:
+                          Text("Are you sure you want to delete this event?"),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text("Cancel"),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        TextButton(
+                          child: Text("Delete"),
+                          onPressed: () {
+                            document.reference.delete();
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  });
+
+              // document.reference.delete();
+            },
+            icon: Icon(
+              Icons.cancel_outlined,
+              color: Colors.red,
+              size: 40,
+            ),
+          ),
+          Column(
             children: [
-              IconButton(
-                onPressed: () {
-                  document.reference.delete();
-                },
-                icon: Icon(
-                  Icons.cancel_outlined,
-                  color: Colors.red,
-                ),
-              ),
-              SizedBox(
-                width: 10,
-              ),
               Text(
                 eventName,
                 style: TextStyle(
@@ -121,12 +147,9 @@ class editableScheduleWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
+              SizedBox(
+                height: 10,
+              ),
               Text(
                 eventDateTime.toString().split(" ")[1].split(".")[0],
                 style: TextStyle(
@@ -135,36 +158,39 @@ class editableScheduleWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              IconButton(
-                icon: Icon(Icons.access_time),
-                color: Colors.white,
-                onPressed: () async {
-                  DateTime oldDate = this.eventDateTime;
-
-                  DateTime newDate;
-
-                  await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay(
-                        hour: eventDateTime.hour, minute: eventDateTime.minute),
-                  ).then((value) {
-                    print(value);
-                    if (value == null) return;
-                    newDate = DateTime(
-                      oldDate.year,
-                      oldDate.month,
-                      oldDate.day,
-                      value.hour,
-                      value.minute,
-                    );
-
-                    print(newDate);
-                    updateEvent(eventName, newDate);
-                  });
-                },
-              )
             ],
           ),
+          IconButton(
+            icon: Icon(
+              Icons.access_time,
+              size: 40,
+            ),
+            color: Colors.white,
+            onPressed: () async {
+              DateTime oldDate = this.eventDateTime;
+
+              DateTime newDate;
+
+              await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay(
+                    hour: eventDateTime.hour, minute: eventDateTime.minute),
+              ).then((value) {
+                print(value);
+                if (value == null) return;
+                newDate = DateTime(
+                  oldDate.year,
+                  oldDate.month,
+                  oldDate.day,
+                  value.hour,
+                  value.minute,
+                );
+
+                print(newDate);
+                updateEvent(eventName, newDate);
+              });
+            },
+          )
         ],
       ),
     );

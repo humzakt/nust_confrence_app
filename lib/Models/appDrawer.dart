@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nust_conference/Controller/authMethods.dart';
+import 'package:nust_conference/Controller/navigate.dart';
 import 'package:nust_conference/Models/loginDialog.dart';
 import 'package:nust_conference/colors.dart';
 import 'package:nust_conference/provider/loggedInProvider.dart';
 import 'package:provider/provider.dart';
+
+import '../Controller/checkInternet.dart';
 
 class appDrawer extends StatelessWidget {
   const appDrawer({
@@ -26,20 +29,22 @@ class appDrawer extends StatelessWidget {
                   // color: primaryColor,
                   ),
               child: Image.asset(
-                "assets/nust.png",
-                // color: secondaryColor,
-                // fit: BoxFit.fitHeight,
-              ),
-            ),
-            const Text(
-              "Nust Conference",
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 30,
+                "assets/nips.png",
                 color: secondaryColor,
+                // fit: BoxFit.fitHeight,
+                height: MediaQuery.of(context).size.width * 0.3,
               ),
-              textAlign: TextAlign.center,
             ),
+
+            // const Text(
+            //   "SECDIV - NIPS",
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.w400,
+            //       fontSize: 30,
+            //       color: secondaryColor,
+            //       fontFamily: 'Calisto'),
+            //   textAlign: TextAlign.center,
+            // ),
             const SizedBox(
               height: 10,
             ),
@@ -64,14 +69,39 @@ class appDrawer extends StatelessWidget {
             ),
             appDrawerListTile(
               title: 'Locate Venue',
-              onTap: () {},
+              onTap: () {
+                navigateTo();
+              },
               icon: Icons.directions,
             ),
             // Spacer()
             Expanded(child: SizedBox()),
+
             Provider.of<AdminProvider>(context, listen: true).isLoggedIn
                 ? logoutButton()
                 : loginButton(),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Image.asset(
+                  'assets/nust.png',
+                  width: MediaQuery.of(context).size.width / 5,
+                  // color: Colors.white,
+                ),
+                Image.asset(
+                  'assets/MoFA.png',
+                  width: MediaQuery.of(context).size.width / 6.5,
+                  color: Colors.white,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 5,
+            ),
           ],
         ),
       ),
@@ -87,9 +117,27 @@ class logoutButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        AuthMethods().signOut(context);
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      onPressed: () async {
+        if (await checkInternet(context)) {
+          AuthMethods().signOut(context);
+          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        } else
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text("No Internet"),
+              content: Text("Please check your internet connection"),
+              actions: [
+                TextButton(
+                  child: Text("OK"),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            ),
+          );
+
         // showDialog(
         //   context: context,
         //   builder: (_) => DialogWidget(),
@@ -123,7 +171,8 @@ class logoutButton extends StatelessWidget {
             ),
             Text(
               'Logout',
-              style: TextStyle(color: secondaryColor, fontSize: 20),
+              style: TextStyle(
+                  color: secondaryColor, fontSize: 20, fontFamily: 'Calisto'),
             ),
           ],
         ),
@@ -140,12 +189,33 @@ class loginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (_) => DialogWidget(),
-          barrierDismissible: false,
-        );
+      onPressed: () async {
+        await checkInternet(context)
+            ? showDialog(
+                context: context,
+                builder: (_) => DialogWidget(),
+                barrierDismissible: false,
+              )
+            : showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: Text("No Internet"),
+                  content: Text("Please check your internet connection"),
+                  actions: [
+                    TextButton(
+                      child: Text("OK"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                ),
+              );
+        // showDialog(
+        //   context: context,
+        //   builder: (_) => DialogWidget(),
+        //   barrierDismissible: false,
+        // );
       },
       child: Container(
         // color: secondaryColor,
@@ -174,7 +244,8 @@ class loginButton extends StatelessWidget {
             ),
             Text(
               'Login',
-              style: TextStyle(color: secondaryColor, fontSize: 20),
+              style: TextStyle(
+                  color: secondaryColor, fontSize: 20, fontFamily: 'Calisto'),
             ),
           ],
         ),
@@ -218,7 +289,8 @@ class appDrawerListTile extends StatelessWidget {
 
             Text(
               title,
-              style: const TextStyle(color: secondaryColor, fontSize: 20),
+              style: const TextStyle(
+                  color: secondaryColor, fontSize: 20, fontFamily: 'Calisto'),
             ),
           ],
         ),

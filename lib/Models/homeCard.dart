@@ -5,6 +5,7 @@ class HomeCard extends StatefulWidget {
   final IconData icon;
   final String text;
   final Function() ontap;
+
   HomeCard(
       {Key? key, required this.icon, required this.text, required this.ontap})
       : super(key: key);
@@ -48,7 +49,8 @@ class _HomeCardState extends State<HomeCard> {
               style: const TextStyle(
                   color: Colors.black,
                   fontSize: 18,
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Calisto'),
             ),
           ],
         ),

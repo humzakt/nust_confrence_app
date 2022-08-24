@@ -16,7 +16,6 @@ class ProfileDisplayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -45,10 +44,10 @@ class ProfileDisplayWidget extends StatelessWidget {
           Text(
             name,
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: Colors.black,
-            ),
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Colors.black,
+                fontFamily: 'Calisto'),
           ),
           SizedBox(
             height: 10,
@@ -56,9 +55,7 @@ class ProfileDisplayWidget extends StatelessWidget {
           Text(
             description,
             style: TextStyle(
-              color: Colors.grey,
-              fontSize: 15,
-            ),
+                color: Colors.grey, fontSize: 15, fontFamily: 'Calisto'),
             textAlign: TextAlign.center,
           ),
         ],
