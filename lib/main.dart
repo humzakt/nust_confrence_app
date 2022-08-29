@@ -1,12 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:nust_conference/Views/contact_screen.dart';
-import 'package:nust_conference/Views/papers_screen.dart';
 import 'package:nust_conference/Views/programme_screen.dart';
 import 'package:nust_conference/Views/splashScreen.dart';
 import 'package:nust_conference/provider/loggedInProvider.dart';
 import 'package:provider/provider.dart';
-import 'Views/committees_screen.dart';
 import 'Views/home_screen.dart';
 import 'Views/speaker_screen.dart';
 
@@ -40,7 +38,6 @@ class MyApp extends StatelessWidget {
               '/speakers': (context) => const SpeakerScreen(),
               '/home': (context) => const Home(),
               '/contact': (context) => const ContactScreen(),
-              '/committee': (context) => const CommitteesScreen(),
               '/programme': (context) => const ProgrammeScreen(),
             },
           );

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 Future<bool> checkInternet(BuildContext context) async {
@@ -7,7 +6,7 @@ Future<bool> checkInternet(BuildContext context) async {
     print("in check internet method");
     final result = await InternetAddress.lookup('example.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      print("coonected to internet");
+      print("connected to internet");
       return true;
     } else {
       Navigator.pushNamed(context, '/error')
@@ -18,8 +17,6 @@ Future<bool> checkInternet(BuildContext context) async {
     return false;
   } on SocketException catch (_) {
     print('not connected to the Internet');
-    // await Navigator.pushNamed(context, '/error')
-    //     .then((value) => checkInternet(context));
 
     return false;
   }

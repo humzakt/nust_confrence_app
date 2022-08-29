@@ -9,21 +9,5 @@ AppBar AppBarWidget({required String title, bool centertitle = true}) {
       style: TextStyle(fontFamily: 'Calisto'),
     ),
     backgroundColor: primaryColor,
-    // leading: Builder(builder: (context) {
-    //   return IconButton(
-    //     onPressed: () {
-    //       Scaffold.of(context).openDrawer();
-    //     },
-    //     icon: CircleAvatar(
-    //       // radius: 20,
-    //       backgroundImage: AssetImage(
-    //         "assets/nust.png",
-    //
-    //         // fit: BoxFit.fitHeight,
-    //         // width: 300,
-    //       ),
-    //     ),
-    //   );
-    // }),
   );
 }

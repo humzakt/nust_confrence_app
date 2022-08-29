@@ -18,110 +18,98 @@ class appDrawer extends StatelessWidget {
     return SafeArea(
       child: Drawer(
         backgroundColor: primaryColor,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          // Important: Remove any padding from the ListView.
-          // padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(
-                  // color: primaryColor,
+        child: SafeArea(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // Important: Remove any padding from the ListView.
+              // padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  decoration: BoxDecoration(
+                      // color: primaryColor,
+                      ),
+                  child: Image.asset(
+                    "assets/nips.png",
+                    color: secondaryColor,
+                    height: MediaQuery.of(context).size.width * 0.3,
                   ),
-              child: Image.asset(
-                "assets/nips.png",
-                color: secondaryColor,
-                // fit: BoxFit.fitHeight,
-                height: MediaQuery.of(context).size.width * 0.3,
-              ),
-            ),
+                ),
+                Divider(
+                  color: secondaryColor,
+                ),
+                appDrawerListTile(
+                  title: 'Home',
+                  onTap: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/home', (route) => false);
+                  },
+                  icon: Icons.home_filled,
+                ),
+                appDrawerListTile(
+                  title: 'Contact Us',
+                  onTap: () {
+                    Navigator.pushNamed(context, '/contact');
+                  },
+                  icon: Icons.call,
+                ),
+                appDrawerListTile(
+                  title: 'Locate Venue',
+                  onTap: () {
+                    navigateTo();
+                  },
+                  icon: Icons.directions,
+                ),
+                // Spacer()
+                Expanded(child: SizedBox()),
 
-            // const Text(
-            //   "SECDIV - NIPS",
-            //   style: TextStyle(
-            //       fontWeight: FontWeight.w400,
-            //       fontSize: 30,
-            //       color: secondaryColor,
-            //       fontFamily: 'Calisto'),
-            //   textAlign: TextAlign.center,
-            // ),
-            const SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: secondaryColor,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            appDrawerListTile(
-              title: 'Home',
-              onTap: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/home', (route) => false);
-              },
-              icon: Icons.home_filled,
-            ),
-            appDrawerListTile(
-              title: 'Contact Us',
-              onTap: () {},
-              icon: Icons.call,
-            ),
-            appDrawerListTile(
-              title: 'Locate Venue',
-              onTap: () {
-                navigateTo();
-              },
-              icon: Icons.directions,
-            ),
-            // Spacer()
-            Expanded(child: SizedBox()),
-
-            Provider.of<AdminProvider>(context, listen: true).isLoggedIn
-                ? logoutButton()
-                : loginButton(),
-            SizedBox(
-              height: 30,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Image.asset(
-                  'assets/nust.png',
-                  width: MediaQuery.of(context).size.width / 5,
-                  // color: Colors.white,
+                Provider.of<AdminProvider>(context, listen: true).isLoggedIn
+                    ? logoutButton()
+                    : loginButton(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
                 ),
-                Image.asset(
-                  'assets/MoFA.png',
-                  width: MediaQuery.of(context).size.width / 6.5,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.copyright,
-                  color: Colors.white,
-                ),
-                Text(
-                  " Developed by NUST LMS Team",
-                  style: TextStyle(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Image.asset(
+                      'assets/nust.png',
+                      width: MediaQuery.of(context).size.width / 5,
+                      // color: Colors.white,
+                    ),
+                    Image.asset(
+                      'assets/MoFA.png',
+                      width: MediaQuery.of(context).size.width / 6.5,
                       color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.copyright,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      " Developed by NUST LMS Team",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -156,12 +144,6 @@ class logoutButton extends StatelessWidget {
               ],
             ),
           );
-
-        // showDialog(
-        //   context: context,
-        //   builder: (_) => DialogWidget(),
-        //   barrierDismissible: false,
-        // );
       },
       child: Container(
         // color: secondaryColor,
@@ -230,11 +212,6 @@ class loginButton extends StatelessWidget {
                   ],
                 ),
               );
-        // showDialog(
-        //   context: context,
-        //   builder: (_) => DialogWidget(),
-        //   barrierDismissible: false,
-        // );
       },
       child: Container(
         // color: secondaryColor,
@@ -256,8 +233,6 @@ class loginButton extends StatelessWidget {
               Icons.login,
               color: secondaryColor,
             ),
-            // alignment: Alignment.bottomLeft,
-
             SizedBox(
               width: 10,
             ),
@@ -301,11 +276,9 @@ class appDrawerListTile extends StatelessWidget {
               icon,
               color: secondaryColor,
             ),
-            // Expanded(child: SizedBox()),
             const SizedBox(
               width: 20,
             ),
-
             Text(
               title,
               style: const TextStyle(

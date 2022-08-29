@@ -19,44 +19,55 @@ class _HomeCardState extends State<HomeCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: widget.ontap,
-      child: Container(
-        height: MediaQuery.of(context).size.height * 0.18,
-        width: MediaQuery.of(context).size.width * 0.35,
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: backgroundColor,
-          boxShadow: const [
-            BoxShadow(
+      child: SafeArea(
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.18,
+          width: MediaQuery.of(context).size.width * 0.33,
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: backgroundColor,
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                offset: Offset(0.5, 1.0), //(x,y)
+                blurRadius: 5.0,
+              ),
+            ],
+            border: Border.all(
               color: Colors.grey,
-              offset: Offset(0.5, 1.0), //(x,y)
-              blurRadius: 5.0,
+              width: 3,
             ),
-          ],
-          border: Border.all(
-            color: Colors.grey,
-            width: 3,
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              widget.icon,
-              color: Colors.black,
-              size: 80,
-            ),
-            Text(
-              widget.text,
-              style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Calisto'),
-            ),
-          ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                widget.icon,
+                color: Colors.black,
+                size: 80,
+              ),
+              Flexible(
+                flex: 1,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    widget.text,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Calisto',
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

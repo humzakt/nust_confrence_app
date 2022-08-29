@@ -4,7 +4,6 @@ import 'package:nust_conference/Controller/navigate.dart';
 import 'package:nust_conference/Models/appBar.dart';
 import 'package:nust_conference/Models/appDrawer.dart';
 import 'package:nust_conference/Models/homeCard.dart';
-
 import 'package:nust_conference/colors.dart';
 
 class Home extends StatefulWidget {
@@ -42,32 +41,7 @@ class _HomeState extends State<Home> {
                   child: Image.asset('assets/Backdrop.jpg'),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.3,
-
-                  // height: 40,
-                  // // // decoration: BoxDecoration(
-                  // //   borderRadius: BorderRadius.circular(25),
-                  // //   color: backgroundColor,
-                  // //   boxShadow: const [
-                  // //     BoxShadow(
-                  // //       color: Colors.grey,
-                  // //       offset: Offset(0.0, 1.0), //(x,y)
-                  // //       blurRadius: 5.0,
-                  // //     ),
-                  // //   ],
-                  // ),
-                  // child: Image.asset(
-                  //   'assets/conferenceText.png',
-                  //   color: Colors.white,
-                  //   width: MediaQuery.of(context).size.width,
-                  // ),
                 ),
-                // CHILD TEXT
-                // const Text(
-                //   "2nd International Conference on Digital Futures and Transformative Technologies will provide and exceelt international forum for sharing knowledge and results in theory , methodology and results.",
-                //   style: TextStyle(
-                //       color: Colors.grey, fontSize: 15, fontFamily: 'Calisto'),
-                //   textAlign: TextAlign.center,
-                // ),
               ],
             ),
           ),
@@ -153,7 +127,6 @@ class _HomeState extends State<Home> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image.asset(
                 'assets/definingFutures.png',

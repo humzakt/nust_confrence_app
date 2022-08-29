@@ -41,9 +41,6 @@ class ContactCard extends StatelessWidget {
                 color: Colors.black,
                 fontFamily: 'Calisto'),
           ),
-          // SizedBox(
-          //   height: 5,
-          // ),
           Text(
             description,
             style: TextStyle(

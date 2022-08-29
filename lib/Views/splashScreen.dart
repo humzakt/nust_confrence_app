@@ -37,12 +37,6 @@ class SplashScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            // Text(
-            //   "September 5 - 6 , 2020",
-            //   textAlign: TextAlign.center,
-            //   style: TextStyle(
-            //       color: Colors.white, fontSize: 25, fontFamily: 'Calisto'),
-            // ),
             SizedBox(
               height: 30,
             ),
@@ -74,7 +68,6 @@ class SplashScreen extends StatelessWidget {
       splashIconSize: 400,
       backgroundColor: primaryColor,
       nextScreen: Home(),
-      // duration: 999999999999999999,
     );
   }
 }

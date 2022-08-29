@@ -94,16 +94,6 @@ class _ProgrammeScreenState extends State<ProgrammeScreen> {
                                       child: Text(items),
                                     );
                                   }).toList(),
-
-                                  // items.map((String items) {
-                                  //   return DropdownMenuItem(
-                                  //     value: items,
-                                  //     child: Text(items),
-                                  //   );
-                                  //
-                                  // }).toList(),
-                                  // After selecting the desired option,it will
-                                  // change button value to selected value
                                   onChanged: (String? newValue) {
                                     setState(() {
                                       dropdownvalue = newValue!;
