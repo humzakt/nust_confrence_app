@@ -21,55 +21,89 @@ class _GetScheduleState extends State<GetSchedule> {
   late final FirebaseFirestore _firestore =
       Provider.of<AdminProvider>(context, listen: false).firestore;
   bool isLoggedIn = false;
+  //Bool to check if collection has docs or not
+  bool isCollectionEmpty = true;
+
+  checkCollection() async {
+    var snap = await _firestore.collection('conference 2022').get();
+    if (snap.docs.isNotEmpty) {
+      setState(() {
+        isCollectionEmpty = false;
+      });
+    } else {
+      setState(() {
+        isCollectionEmpty = true;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    checkCollection();
     isLoggedIn = Provider.of<AdminProvider>(context, listen: false).isLoggedIn;
   }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: _firestore
-          .collection("conference 2022")
-          .doc(widget.date)
-          .collection("schedule")
-          .orderBy('timestamp')
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.lightBlueAccent,
+    return isCollectionEmpty
+        ? Container(
+            child: Center(
+              child:
+                  Text("", style: TextStyle(fontSize: 20, color: Colors.white)),
             ),
-          );
-        }
-        return ListView(
-          physics: BouncingScrollPhysics(),
-          shrinkWrap: true,
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            String time =
-                DateFormat.yMMMd().add_jm().format(data['timestamp'].toDate());
+          )
+        : StreamBuilder<QuerySnapshot>(
+            stream: _firestore
+                .collection("conference 2022")
+                .doc(widget.date)
+                .collection("schedule")
+                .orderBy('timestamp')
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.lightBlueAccent,
+                  ),
+                );
+              } else if (snapshot.data!.docs.length == 0) {
+                print("No Event on this date");
+                // Deleting Date with no event!
+                _firestore
+                    .collection("conference 2022")
+                    .doc(widget.date)
+                    .delete();
+              }
 
-            // print(time.split(" ")[3] + " " + time.split(" ")[4]);
-            time = time.split(" ")[3] + " " + time.split(" ")[4];
-            return isLoggedIn
-                ? editableScheduleWidget(
-                    eventName: data['event'].toString(),
-                    eventDateTime: data['timestamp'].toDate(),
-                    document: document,
-                  )
-                : TimelineTileWidget(
-                    leading: time,
-                    trailing: data['event'].toString(),
-                  );
-          }).toList(),
-        );
-      },
-    );
+              return ListView(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                  Map<String, dynamic> data =
+                      document.data()! as Map<String, dynamic>;
+                  print("data is : \n");
+                  print(data.toString());
+                  String time = DateFormat.yMMMd()
+                      .add_jm()
+                      .format(data['timestamp'].toDate());
+
+                  // print(time.split(" ")[3] + " " + time.split(" ")[4]);
+                  time = time.split(" ")[3] + " " + time.split(" ")[4];
+                  return isLoggedIn
+                      ? editableScheduleWidget(
+                          eventName: data['event'].toString(),
+                          eventDateTime: data['timestamp'].toDate(),
+                          document: document,
+                        )
+                      : TimelineTileWidget(
+                          leading: time,
+                          trailing: data['event'].toString(),
+                        );
+                }).toList(),
+              );
+            },
+          );
   }
 }
 
@@ -137,28 +171,39 @@ class editableScheduleWidget extends StatelessWidget {
               size: 40,
             ),
           ),
-          Column(
-            children: [
-              Text(
-                eventName,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
+          SizedBox(
+            width: 10,
+          ),
+          Flexible(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  eventName,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                  // overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                eventDateTime.toString().split(" ")[1].split(".")[0],
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-            ],
+                Text(
+                  eventDateTime.toString().split(" ")[1].split(".")[0],
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 10,
           ),
           IconButton(
             icon: Icon(

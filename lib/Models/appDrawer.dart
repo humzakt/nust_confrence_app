@@ -100,7 +100,26 @@ class appDrawer extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 5,
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.copyright,
+                  color: Colors.white,
+                ),
+                Text(
+                  " Developed by NUST LMS Team",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
             ),
           ],
         ),

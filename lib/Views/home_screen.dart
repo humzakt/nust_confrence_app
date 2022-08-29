@@ -23,21 +23,25 @@ class _HomeState extends State<Home> {
       drawer: appDrawer(),
       // App Bar Widget Used
 
-      appBar: AppBarWidget(title: "Welcome to Conference"),
+      appBar: AppBarWidget(title: "Home", centertitle: false),
+
       body: ListView(
         // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(
-              horizontal: 5,
-              vertical: 20,
+              horizontal: 0,
+              vertical: 0,
             ),
             child: Column(
               children: [
                 // MAIN TEXT CONTAINER
                 Container(
                   // padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.symmetric(vertical: 20),
+                  margin: const EdgeInsets.symmetric(vertical: 0),
+                  child: Image.asset('assets/Backdrop.jpg'),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.3,
 
                   // height: 40,
                   // // // decoration: BoxDecoration(
@@ -51,25 +55,25 @@ class _HomeState extends State<Home> {
                   // //     ),
                   // //   ],
                   // ),
-                  child: Image.asset(
-                    'assets/conferenceText.png',
-                    color: Colors.white,
-                    width: MediaQuery.of(context).size.width,
-                  ),
+                  // child: Image.asset(
+                  //   'assets/conferenceText.png',
+                  //   color: Colors.white,
+                  //   width: MediaQuery.of(context).size.width,
+                  // ),
                 ),
                 // CHILD TEXT
-                const Text(
-                  "2nd International Conference on Digital Futures and Transformative Technologies will provide and exceelt international forum for sharing knowledge and results in theory , methodology and results.",
-                  style: TextStyle(
-                      color: Colors.grey, fontSize: 15, fontFamily: 'Calisto'),
-                  textAlign: TextAlign.center,
-                ),
+                // const Text(
+                //   "2nd International Conference on Digital Futures and Transformative Technologies will provide and exceelt international forum for sharing knowledge and results in theory , methodology and results.",
+                //   style: TextStyle(
+                //       color: Colors.grey, fontSize: 15, fontFamily: 'Calisto'),
+                //   textAlign: TextAlign.center,
+                // ),
               ],
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          // const SizedBox(
+          //   height: 0,
+          // ),
 
           // HOME CARDS
           Row(
@@ -102,8 +106,25 @@ class _HomeState extends State<Home> {
               HomeCard(
                 icon: Icons.people,
                 text: "SPEAKERS",
-                ontap: () {
-                  Navigator.pushNamed(context, '/speakers');
+                ontap: () async {
+                  await checkInternet(context)
+                      ? Navigator.pushNamed(context, '/speakers')
+                      : showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text("No Internet"),
+                            content:
+                                Text("Please check your internet connection"),
+                            actions: [
+                              TextButton(
+                                child: Text("OK"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              )
+                            ],
+                          ),
+                        );
                 },
               ),
             ],
@@ -121,7 +142,9 @@ class _HomeState extends State<Home> {
               HomeCard(
                   icon: Icons.contact_support_outlined,
                   text: "CONTACT",
-                  ontap: () {}),
+                  ontap: () {
+                    Navigator.pushNamed(context, '/contact');
+                  }),
             ],
           ),
 

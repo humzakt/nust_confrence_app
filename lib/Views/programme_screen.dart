@@ -18,7 +18,7 @@ class ProgrammeScreen extends StatefulWidget {
 
 class _ProgrammeScreenState extends State<ProgrammeScreen> {
   //Initial Dropdown Value
-  late String dropdownvalue;
+  String dropdownvalue = '';
 
   // List of items in our dropdown menu
   List<String> items = [];
@@ -26,7 +26,6 @@ class _ProgrammeScreenState extends State<ProgrammeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     updateItems();
   }
@@ -78,7 +77,7 @@ class _ProgrammeScreenState extends State<ProgrammeScreen> {
                                   value: dropdownvalue,
                                   style: const TextStyle(
                                       color: Colors.black,
-                                      fontSize: 20,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w500),
 
                                   // Down Arrow Icon
@@ -164,6 +163,7 @@ class adminPanel extends StatefulWidget {
 class _adminPanelState extends State<adminPanel> {
   String eventName = "";
   late DateTime date;
+  TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -183,6 +183,7 @@ class _adminPanelState extends State<adminPanel> {
         children: [
           Expanded(
             child: TextFormField(
+              controller: _controller,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white, width: 2.0),
@@ -207,9 +208,10 @@ class _adminPanelState extends State<adminPanel> {
               },
             ),
           ),
-          eventName.isNotEmpty
+          _controller.text.isNotEmpty
               ? IconButton(
                   onPressed: () async {
+                    _controller.clear();
                     showDatePicker(
                             context: context,
                             initialDate: DateTime(2022, 12, 15),

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:nust_conference/Views/contact_screen.dart';
 import 'package:nust_conference/Views/papers_screen.dart';
 import 'package:nust_conference/Views/programme_screen.dart';
 import 'package:nust_conference/Views/splashScreen.dart';
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
               '/splashScreen': (context) => const SplashScreen(),
               '/speakers': (context) => const SpeakerScreen(),
               '/home': (context) => const Home(),
-              // '/papers': (context) => const PaperScreen(),
+              '/contact': (context) => const ContactScreen(),
               '/committee': (context) => const CommitteesScreen(),
               '/programme': (context) => const ProgrammeScreen(),
             },

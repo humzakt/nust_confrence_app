@@ -8,13 +8,14 @@ class ProfileDisplayWidget extends StatelessWidget {
 
   const ProfileDisplayWidget(
       {Key? key,
-      required this.imageUrl,
+      this.imageUrl = '',
       required this.name,
       required this.description})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(imageUrl);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       decoration: BoxDecoration(
@@ -34,9 +35,11 @@ class ProfileDisplayWidget extends StatelessWidget {
           CircleAvatar(
             radius: 50,
             backgroundColor: secondaryColor,
-            backgroundImage: NetworkImage(
-              imageUrl,
-            ),
+            backgroundImage: imageUrl == ''
+                ? Image.asset('assets/default.png').image
+                : NetworkImage(
+                    imageUrl,
+                  ),
           ),
           SizedBox(
             height: 10,
@@ -55,7 +58,10 @@ class ProfileDisplayWidget extends StatelessWidget {
           Text(
             description,
             style: TextStyle(
-                color: Colors.grey, fontSize: 15, fontFamily: 'Calisto'),
+                color: Colors.grey,
+                fontSize: 16,
+                fontFamily: 'Calisto',
+                fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
         ],

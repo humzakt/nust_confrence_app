@@ -30,10 +30,14 @@ class _HomeCardState extends State<HomeCard> {
           boxShadow: const [
             BoxShadow(
               color: Colors.grey,
-              offset: Offset(0.0, 1.0), //(x,y)
+              offset: Offset(0.5, 1.0), //(x,y)
               blurRadius: 5.0,
             ),
           ],
+          border: Border.all(
+            color: Colors.grey,
+            width: 3,
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

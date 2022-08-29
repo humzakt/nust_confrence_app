@@ -93,10 +93,10 @@ flutter:
   fonts:
     - family: Calisto
       fonts:
-        - asset: fonts/CALIST.ttf
-        - asset: fonts/CALISTI.ttf
+        - asset: fonts/CALIST.TTF
+        - asset: fonts/CALISTI.TTF
           style: italic
-        - asset: fonts/CALISTB.ttf
+        - asset: fonts/CALISTB.TTF
           weight: 700
         - asset: fonts/CALISTBI.ttf
           weight: 700

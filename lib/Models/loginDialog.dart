@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nust_conference/Controller/authMethods.dart';
 import 'package:nust_conference/Models/textField.dart';
+import 'package:nust_conference/Views/programme_screen.dart';
 import 'package:nust_conference/provider/loggedInProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -44,6 +45,10 @@ class _DialogWidgetState extends State<DialogWidget> {
           Navigator.pop(context);
 
           Navigator.pushNamed(context, '/programme');
+          // Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (BuildContext context) => ProgrammeScreen()));
         } else {
           setState(() {
             loginResponse = "Login Failed!";
