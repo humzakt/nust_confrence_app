@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import '../../colors.dart';
 
@@ -13,6 +14,14 @@ class TimelineTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var data = trailing.split('\\n');
+    // print(data);
+    var updatedData = List.from(data);
+    if (data.length > 1) {
+      updatedData.removeRange(0, 1);
+      updatedData[0] = "\n● " + updatedData[0];
+    }
+
     return Container(
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.all(5),
@@ -40,20 +49,48 @@ class TimelineTileWidget extends StatelessWidget {
                 boxShadow: const [],
               ),
               child: Row(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(Icons.event, color: Colors.black),
                   SizedBox(width: 10),
                   Flexible(
-                    flex: 1,
-                    child: Text(
-                      trailing,
-                      maxLines: 7,
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Calisto'),
+                    // flex: 1,
+                    child: ExpandablePanel(
+                      theme: ExpandableThemeData(
+                        tapBodyToExpand: true,
+                        tapBodyToCollapse: true,
+                        hasIcon: (data.length > 1),
+                      ),
+                      header: Text(
+                        data[0],
+                        maxLines: 7,
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Calisto'),
+                      ),
+                      collapsed: (data.length > 1)
+                          ? Text(
+                              updatedData[0] + "...",
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 15),
+                              softWrap: true,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          : Container(),
+                      expanded: (data.length > 1)
+                          ? Text(
+                              // trailing.replaceAll("\\n", "\n\n● "),
+                              updatedData.join("\n\n● "),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              softWrap: true,
+                            )
+                          : Container(),
                     ),
                   ),
                 ],

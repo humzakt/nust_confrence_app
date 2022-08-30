@@ -79,8 +79,8 @@ class _GetScheduleState extends State<GetSchedule> {
                 children: snapshot.data!.docs.map((DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
-                  print("data is : \n");
-                  print(data.toString());
+                  // print("data is : \n");
+                  // print(data.toString());
                   String time = DateFormat.yMMMd()
                       .add_jm()
                       .format(data['timestamp'].toDate());

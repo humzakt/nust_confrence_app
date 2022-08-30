@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
                 Container(
                   // padding: const EdgeInsets.all(10),
                   margin: const EdgeInsets.symmetric(vertical: 0),
-                  child: Image.asset('assets/Backdrop.jpg'),
+                  child: Image.asset('assets/backdropImg.jpeg'),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.3,
                 ),

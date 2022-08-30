@@ -42,6 +42,7 @@ dependencies:
   firebase_core: ^1.21.0
   intl: ^0.17.0
   provider: ^6.0.3
+  expandable: ^5.0.1
 
 
 dev_dependencies:
@@ -52,7 +53,7 @@ flutter_icons:
   android: true
   ios: false
 
-  image_path: "assets/nustu.png"
+  image_path: "assets/MoFA.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -34,7 +34,7 @@ class ProfileDisplayWidget extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 50,
-            backgroundColor: secondaryColor,
+            backgroundColor: Colors.grey[200],
             backgroundImage: imageUrl == ''
                 ? Image.asset('assets/default.png').image
                 : NetworkImage(
