@@ -4,7 +4,7 @@ import 'package:nust_conference/colors.dart';
 
 import '../Models/appBar.dart';
 import '../Models/appDrawer.dart';
-import '../widgets/speakers/speakerCard.dart';
+
 
 class SpeakerScreen extends StatefulWidget {
   const SpeakerScreen({Key? key}) : super(key: key);

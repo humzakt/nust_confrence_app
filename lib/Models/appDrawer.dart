@@ -249,11 +249,11 @@ class loginButton extends StatelessWidget {
 }
 
 class appDrawerListTile extends StatelessWidget {
-  IconData icon;
+ final IconData icon;
 
   final GestureTapCallback? onTap;
 
-  String title;
+  final String title;
 
   appDrawerListTile({
     Key? key,

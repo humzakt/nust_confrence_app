@@ -105,10 +105,10 @@ class _GetScheduleState extends State<GetSchedule> {
 }
 
 class editableScheduleWidget extends StatelessWidget {
-  String eventName;
-  DateTime eventDateTime;
+  final String eventName;
+  final DateTime eventDateTime;
 
-  DocumentSnapshot document;
+ final DocumentSnapshot document;
 
   editableScheduleWidget(
       {Key? key,
